@@ -204,7 +204,7 @@ Once connected to an MCP client, try these queries:
 ```bash
 # Check .NET version
 dotnet --version
-# Should be 10.0.x or later
+# Should be 8.0.x or later
 
 # Clean and rebuild
 cd src

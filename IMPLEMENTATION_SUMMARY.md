@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-Successfully implemented a comprehensive Model Context Protocol (MCP) Server for Availity's Element Design System, built on .NET 10.
+Successfully implemented a comprehensive Model Context Protocol (MCP) Server for Availity's Element Design System, built on .NET 8.
 
 ## What Was Built
 
 ### Core Implementation
 
-1. **MCP Server Application** (.NET 10)
+1. **MCP Server Application** (.NET 8)
    - Entry point with proper MCP configuration
    - Dependency injection setup
    - HttpClient configuration for API calls
@@ -112,7 +112,7 @@ Successfully implemented a comprehensive Model Context Protocol (MCP) Server for
 ### Project Configuration
 
 1. **ElementMcpServer.csproj**
-   - .NET 10 target framework
+   - .NET 8 target framework
    - Self-contained deployment
    - Cross-platform runtime identifiers
    - NuGet package metadata
@@ -140,7 +140,7 @@ Successfully implemented a comprehensive Model Context Protocol (MCP) Server for
 
 ## Technical Achievements
 
-✅ **Full .NET 10 Support**
+✅ **Full .NET 8 Support**
    - Latest platform features
    - Cross-platform compatibility
    - HttpClient for API integration
@@ -284,7 +284,7 @@ The server is ready for:
 ## Compliance with Requirements
 
 ✅ **MCP Server**: Fully implemented with stdio transport
-✅ **.NET 10**: Built on latest .NET platform
+✅ **.NET 8**: Built on latest .NET platform
 ✅ **Comprehensive Functionality**: 20+ tools covering all areas
 ✅ **Query Components**: ComponentTools with 4 tools
 ✅ **Query Foundations**: FoundationTools with 4 tools
@@ -303,6 +303,6 @@ The server enables AI-powered development workflows by making Element documentat
 ---
 
 **Built**: 2026-02-04
-**Technology**: .NET 10, Model Context Protocol
+**Technology**: .NET 8, Model Context Protocol
 **License**: MIT
 **Repository**: https://github.com/ShaydeNofziger/element-mcp
