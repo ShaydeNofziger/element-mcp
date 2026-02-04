@@ -1,11 +1,14 @@
 using System.Text.Json;
 using ElementMcpServer.Models;
+using ElementMcpServer.Services;
+using Microsoft.Extensions.Logging;
 
 namespace ElementMcpServer.Data;
 
 /// <summary>
 /// Provides access to Availity Element Design System documentation data.
-/// Data is loaded from a JSON file containing comprehensive component information.
+/// Data is loaded from a JSON file containing comprehensive component information,
+/// enriched with dynamic data from the Storybook index.
 /// </summary>
 public class ElementDataService
 {
@@ -13,14 +16,87 @@ public class ElementDataService
     private readonly List<Foundation> _foundations;
     private readonly List<Pattern> _patterns;
     private readonly List<Template> _templates;
+    private readonly StorybookService _storybookService;
+    private readonly ILogger<ElementDataService> _logger;
+    private bool _enrichmentCompleted;
 
-    public ElementDataService()
+    public ElementDataService(StorybookService storybookService, ILogger<ElementDataService> logger)
     {
+        _storybookService = storybookService;
+        _logger = logger;
+        
         var jsonData = LoadJsonData();
         _components = jsonData.Components;
         _foundations = jsonData.Foundations;
         _patterns = jsonData.Patterns;
         _templates = jsonData.Templates;
+        
+        // Enrich components asynchronously (fire and forget)
+        _ = EnrichComponentsAsync();
+    }
+
+    /// <summary>
+    /// Enriches component data with information from Storybook index.
+    /// </summary>
+    private async Task EnrichComponentsAsync()
+    {
+        if (_enrichmentCompleted)
+        {
+            return;
+        }
+
+        try
+        {
+            _logger.LogInformation("Starting component enrichment with Storybook data");
+            
+            var enrichedComponents = new List<Component>();
+            
+            foreach (var component in _components)
+            {
+                try
+                {
+                    var storybookEntry = await _storybookService.FindComponentEntryAsync(component.Name, component.StorybookUrl);
+                    
+                    if (storybookEntry?.ImportPath != null)
+                    {
+                        var gitHubUrl = _storybookService.ConvertImportPathToGitHubUrl(storybookEntry.ImportPath);
+                        var packageUrl = _storybookService.GetGitHubPackageUrl(storybookEntry.ImportPath);
+                        
+                        var enrichedComponent = component with
+                        {
+                            ImportPath = storybookEntry.ImportPath,
+                            GitHubUrl = gitHubUrl,
+                            GitHubPackageUrl = packageUrl
+                        };
+                        
+                        enrichedComponents.Add(enrichedComponent);
+                        _logger.LogDebug("Enriched component {Name} with GitHub URLs", component.Name);
+                    }
+                    else
+                    {
+                        enrichedComponents.Add(component);
+                        _logger.LogDebug("No Storybook entry found for component {Name}", component.Name);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to enrich component {Name}", component.Name);
+                    enrichedComponents.Add(component);
+                }
+            }
+            
+            // Replace the components list with enriched versions
+            _components.Clear();
+            _components.AddRange(enrichedComponents);
+            
+            _enrichmentCompleted = true;
+            _logger.LogInformation("Component enrichment completed. {Count} components enriched", 
+                enrichedComponents.Count(c => c.GitHubUrl != null));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to enrich components with Storybook data");
+        }
     }
 
     public IEnumerable<Component> GetAllComponents() => _components;
