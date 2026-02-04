@@ -1,5 +1,7 @@
 # Element MCP Server
 
+[![Build and Test](https://github.com/ShaydeNofziger/element-mcp/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/ShaydeNofziger/element-mcp/actions/workflows/build-and-test.yml)
+
 An MCP (Model Context Protocol) Server for Availity's Element Design System, built on .NET 10.
 
 ## Overview
@@ -184,6 +186,18 @@ To add or update Element documentation:
 2. Rebuild the project
 3. Test with an MCP client
 
+## CI/CD
+
+The project includes automated GitHub Actions workflows for continuous integration:
+
+- **Build and Test**: Automatically runs on pull requests and pushes to main/master
+  - Builds the project on Ubuntu, Windows, and macOS
+  - Verifies server startup
+  - Validates project structure and all required files
+  - Creates build summary with results
+
+The workflow ensures code quality and cross-platform compatibility before merging changes.
+
 ## Contributing
 
 Contributions are welcome! Please:
@@ -191,7 +205,10 @@ Contributions are welcome! Please:
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Submit a pull request
+4. Ensure CI/CD checks pass
+5. Submit a pull request
+
+All pull requests are automatically validated by the CI/CD pipeline.
 
 ## License
 
