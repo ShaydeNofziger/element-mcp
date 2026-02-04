@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "description": "MCP Server for Availity's Element Design System - Query documentation on components, foundations, patterns, and templates",
+  "name": "io.github.ShaydeNofziger/element-mcp",
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "nuget",
+      "identifier": "ElementMcpServer",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [],
+      "environmentVariables": []
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/ShaydeNofziger/element-mcp",
+    "source": "github"
+  }
+}
