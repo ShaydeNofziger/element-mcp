@@ -238,7 +238,7 @@ dotnet run
 ✅ Client can connect to server
 ✅ All 20+ tools are available
 ✅ Queries return valid JSON responses
-✅ Sample data includes 6 components, 5 foundations, 4 patterns, 4 templates
+✅ Sample data includes 47 components, 8 foundations, 8 patterns, 6 templates
 ✅ Search functionality works across all categories
 
 ## Next Steps

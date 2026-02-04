@@ -12,32 +12,41 @@ An MCP (Model Context Protocol) server that provides AI assistants with access t
 
 The server provides comprehensive information about:
 
-**6 Components:**
-- Button - Primary UI interaction component
-- Card - Content container surface
-- TextField - Text input with validation
-- Alert - Feedback messages
-- Table - Data display with rows/columns
-- Dialog - Modal interactions
+**47 Components** across 6 categories:
+- **Inputs (11):** Button, IconButton, ButtonGroup, TextField, Select, Autocomplete, Checkbox, Radio, Switch, Slider, DatePicker
+- **Surfaces (5):** Card, Paper, Accordion, AppBar, Toolbar
+- **Feedback (8):** Alert, Snackbar, Dialog, Progress, CircularProgress, LinearProgress, Backdrop, Skeleton
+- **Data Display (8):** Table, List, Chip, Avatar, Badge, Tooltip, Typography, Divider
+- **Navigation (8):** Tabs, Drawer, Menu, Breadcrumbs, Link, Stepper, Pagination, BottomNavigation
+- **Layout (5):** Box, Container, Grid, Stack, ImageList
 
-**5 Foundations:**
+**8 Foundations:**
 - Colors - Design tokens and palette
 - Typography - Font scale and styles
 - Spacing - 8px grid system
 - Elevation - Shadow depths
+- Breakpoints - Responsive design system
 - Theme - ThemeProvider configuration
+- Icons - Material Design icon system
+- Shape - Border radius and shape system
 
-**4 Patterns:**
+**8 Patterns:**
 - Form Validation - Consistent form handling
 - Data Loading States - Loading/error/empty states
 - Modal Workflow - Multi-step dialogs
 - Search and Filter - Data exploration
+- Responsive Layout - Cross-device layouts
+- Navigation Patterns - App navigation structures
+- Data Tables - Sortable, filterable tables
+- Form Layouts - Structured form design
 
-**4 Templates:**
+**6 Templates:**
 - Dashboard Layout - Metrics and widgets
 - Form Page - Structured data entry
 - List View - Searchable tables
 - Detail View - Entity information with tabs
+- Wizard Flow - Multi-step processes
+- Settings Page - Configuration interface
 
 ### Example Usage
 

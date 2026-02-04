@@ -46,23 +46,22 @@ public class ElementDataService
     public IEnumerable<object> Search(string query)
     {
         var results = new List<object>();
-        var searchTerm = query.ToLower();
 
         results.AddRange(_components.Where(c => 
-            c.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || 
-            c.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)));
+            c.Name.Contains(query, StringComparison.OrdinalIgnoreCase) || 
+            c.Description.Contains(query, StringComparison.OrdinalIgnoreCase)));
 
         results.AddRange(_foundations.Where(f => 
-            f.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || 
-            f.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)));
+            f.Name.Contains(query, StringComparison.OrdinalIgnoreCase) || 
+            f.Description.Contains(query, StringComparison.OrdinalIgnoreCase)));
 
         results.AddRange(_patterns.Where(p => 
-            p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || 
-            p.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)));
+            p.Name.Contains(query, StringComparison.OrdinalIgnoreCase) || 
+            p.Description.Contains(query, StringComparison.OrdinalIgnoreCase)));
 
         results.AddRange(_templates.Where(t => 
-            t.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || 
-            t.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)));
+            t.Name.Contains(query, StringComparison.OrdinalIgnoreCase) || 
+            t.Description.Contains(query, StringComparison.OrdinalIgnoreCase)));
 
         return results;
     }

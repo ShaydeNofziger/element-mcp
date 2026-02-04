@@ -276,9 +276,9 @@ public record ComponentProp
 ```
 
 **Example Data**:
-- 6 components: Button, Card, TextField, Alert, Table, Dialog
-- Categories: Inputs, Surfaces, Feedback, Data Display
-- Complete with props, examples, and accessibility info
+- 47 components across 6 categories (examples: Button, Card, TextField, Alert, Table, Dialog)
+- Categories: Inputs (11), Surfaces (5), Feedback (8), Data Display (8), Navigation (8), Layout (5)
+- Complete with props, examples, accessibility info, and Storybook URLs
 
 ### Foundation Model
 
@@ -297,9 +297,9 @@ public record Foundation
 ```
 
 **Example Data**:
-- 5 foundations: Colors, Typography, Spacing, Elevation, Theme
-- Types: Color, Typography, Spacing, Elevation, Theme
-- Includes design token mappings
+- 8 foundations: Colors, Typography, Spacing, Elevation, Breakpoints, Theme, Icons, Shape
+- Types: Color, Typography, Spacing, Elevation, Responsive, Theme, Iconography, Shape
+- Includes design token mappings and usage guidance
 
 ### Pattern Model
 
@@ -320,9 +320,9 @@ public record Pattern
 ```
 
 **Example Data**:
-- 4 patterns: Form Validation, Data Loading States, Modal Workflow, Search and Filter
-- Categories: Forms, Feedback, Navigation, Data Display
-- Includes problem/solution framework
+- 8 patterns: Form Validation, Data Loading States, Modal Workflow, Search and Filter, Responsive Layout, Navigation Patterns, Data Tables, Form Layouts
+- Categories: Forms, Feedback, Navigation, Data Display, Layout
+- Includes problem/solution framework and best practices
 
 ### Template Model
 
@@ -343,7 +343,7 @@ public record Template
 ```
 
 **Example Data**:
-- 4 templates: Dashboard Layout, Form Page, List View, Detail View
+- 6 templates: Dashboard Layout, Form Page, List View, Detail View, Wizard Flow, Settings Page
 - Types: Page Layout, Form, Data Display
 - Includes use cases and customization guidance
 
