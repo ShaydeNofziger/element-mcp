@@ -126,7 +126,7 @@ Once published, configure in your IDE:
 
 ## Architecture
 
-The server is built on .NET 10 with the following structure:
+The server is built on .NET 8 with the following structure:
 
 - **Models**: Type-safe data models for Component, Foundation, Pattern, Template
 - **Data**: `ElementDataService` provides in-memory documentation data
@@ -143,7 +143,7 @@ For comprehensive documentation, see:
 
 ## Requirements
 
-- .NET 10.0 SDK or later
+- .NET 8.0 SDK or later
 - An MCP-compatible client (VS Code with Copilot, Visual Studio, Claude Desktop)
 
 ## More Information

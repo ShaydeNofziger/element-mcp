@@ -154,7 +154,7 @@ Create `.vscode/mcp.json`:
 ## Key Features
 
 ✅ **20+ MCP Tools** - Complete coverage of documentation
-✅ **.NET 10** - Latest platform features
+✅ **.NET 8** - Latest platform features
 ✅ **Type-Safe** - Strongly-typed data models
 ✅ **Fast** - In-memory data for instant responses
 ✅ **Comprehensive** - Full examples and guidelines
@@ -166,7 +166,7 @@ Create `.vscode/mcp.json`:
 ```
 MCP Client (Claude/Copilot)
          ↓ JSON-RPC over stdio
-Element MCP Server (.NET 10)
+Element MCP Server (.NET 8)
          ↓
     Tool Layer (5 classes, 20+ tools)
          ↓
@@ -246,4 +246,4 @@ This server enables AI assistants to:
 
 ---
 
-Built with ❤️ using .NET 10 and the Model Context Protocol
+Built with ❤️ using .NET 8 and the Model Context Protocol

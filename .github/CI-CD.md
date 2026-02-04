@@ -27,7 +27,7 @@ Runs on multiple operating systems to ensure cross-platform compatibility:
 
 **Steps**:
 1. Checkout code
-2. Setup .NET 10 SDK
+2. Setup .NET 8 SDK
 3. Restore NuGet dependencies
 4. Build the project in Release configuration
 5. Verify server startup (5-second test)
@@ -136,7 +136,7 @@ test -f src/Data/ElementDataService.cs && echo "✅ Data service exists"
 
 - Check the build logs in the GitHub Actions tab
 - Ensure all dependencies are properly specified in `.csproj`
-- Verify .NET 10 SDK is compatible with your code
+- Verify .NET 8 SDK is compatible with your code
 
 ### Server Startup Failures
 

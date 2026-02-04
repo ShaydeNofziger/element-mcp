@@ -2,7 +2,7 @@
 
 [![Build and Test](https://github.com/ShaydeNofziger/element-mcp/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/ShaydeNofziger/element-mcp/actions/workflows/build-and-test.yml)
 
-An MCP (Model Context Protocol) Server for Availity's Element Design System, built on .NET 10.
+An MCP (Model Context Protocol) Server for Availity's Element Design System, built on .NET 8.
 
 ## Overview
 
@@ -16,7 +16,7 @@ The Element MCP Server provides comprehensive access to Availity's Element Desig
 - **Pattern Documentation**: Explore reusable design patterns for common healthcare application scenarios
 - **Template Documentation**: Access pre-built layout templates for rapid application development
 - **Search Functionality**: Search across all documentation categories with a single query
-- **.NET 10**: Built on the latest .NET platform for optimal performance and cross-platform support
+- **.NET 8**: Built on the latest .NET platform for optimal performance and cross-platform support
 
 ## About Availity Element Design System
 
@@ -36,7 +36,7 @@ Availity Element is a modern React-based design system built on Material UI with
 
 ### Prerequisites
 
-- .NET 10.0 SDK or later
+- .NET 8.0 SDK or later
 - An MCP-compatible client (e.g., Claude Desktop, GitHub Copilot)
 
 ### Install from NuGet
@@ -281,5 +281,5 @@ For issues and questions:
 - Initial release
 - Support for components, foundations, patterns, and templates
 - Full search functionality
-- .NET 10 support
+- .NET 8 support
 - Stdio transport

@@ -13,7 +13,7 @@
 
 ## Overview
 
-The Element MCP Server is a Model Context Protocol (MCP) server implementation that provides AI assistants and other MCP clients with structured access to Availity's Element Design System documentation. Built on .NET 10, it exposes a comprehensive set of tools for querying components, foundations, patterns, and templates.
+The Element MCP Server is a Model Context Protocol (MCP) server implementation that provides AI assistants and other MCP clients with structured access to Availity's Element Design System documentation. Built on .NET 8, it exposes a comprehensive set of tools for querying components, foundations, patterns, and templates.
 
 ### Purpose
 
@@ -29,7 +29,7 @@ Enable AI-powered development workflows by providing:
 - **Type-safe data models** representing design system entities
 - **Efficient in-memory data service** for fast queries
 - **JSON-serialized responses** for easy consumption
-- **Cross-platform support** via .NET 10
+- **Cross-platform support** via .NET 8
 - **Stdio transport** for universal MCP client compatibility
 
 ## Architecture
@@ -213,10 +213,10 @@ public string ToolName(
 
 ### Platform Requirements
 
-- **.NET Version**: 10.0 or later
+- **.NET Version**: 8.0 or later
 - **Runtime**: Cross-platform (Windows, macOS, Linux)
 - **Architecture**: x64, ARM64
-- **Target Framework**: net10.0
+- **Target Framework**: net8.0
 
 ### Dependencies
 
@@ -666,7 +666,7 @@ Potential improvements for future versions:
 
 ### Server won't start
 
-- Verify .NET 10 SDK is installed: `dotnet --version`
+- Verify .NET 8 SDK is installed: `dotnet --version`
 - Check for build errors: `dotnet build`
 - Ensure no other process is using stdio
 
