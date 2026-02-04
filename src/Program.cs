@@ -19,6 +19,9 @@ builder.Services.AddSingleton<StorybookService>();
 // Register the Element Data Service as a singleton
 builder.Services.AddSingleton<ElementDataService>();
 
+// Register the data enrichment background service
+builder.Services.AddHostedService<DataEnrichmentService>();
+
 // Add the MCP services: the transport to use (stdio) and the tools to register.
 builder.Services
     .AddMcpServer()

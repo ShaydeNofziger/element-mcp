@@ -30,18 +30,17 @@ public class ElementDataService
         _foundations = jsonData.Foundations;
         _patterns = jsonData.Patterns;
         _templates = jsonData.Templates;
-        
-        // Enrich components asynchronously (fire and forget)
-        _ = EnrichComponentsAsync();
     }
 
     /// <summary>
     /// Enriches component data with information from Storybook index.
+    /// This method should be called once during application startup.
     /// </summary>
-    private async Task EnrichComponentsAsync()
+    public async Task EnrichComponentsAsync()
     {
         if (_enrichmentCompleted)
         {
+            _logger.LogInformation("Component enrichment already completed, skipping");
             return;
         }
 
