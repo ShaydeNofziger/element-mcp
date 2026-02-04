@@ -119,7 +119,7 @@ public class StorybookService
     }
 
     /// <summary>
-    /// Generates an example import statement for a component based on its import path.
+    /// Generates an example import statement for a component from the @availity/element rollup package.
     /// </summary>
     public string? GeneratePackageImport(string componentName, string importPath)
     {
@@ -130,9 +130,9 @@ public class StorybookService
         var parts = cleanPath.Split('/');
         if (parts.Length >= 2 && parts[0] == "packages")
         {
-            var packageName = parts[1];
             // Component name is already in the correct case (e.g., "Button", "TextField")
-            return $"import {{ {componentName} }} from '@availity/mui-{packageName}';";
+            // Import from the rollup package instead of individual packages
+            return $"import {{ {componentName} }} from '@availity/element';";
         }
         
         return null;
