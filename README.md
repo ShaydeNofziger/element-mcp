@@ -1,2 +1,237 @@
-# element-mcp
-An MCP Server for Availity's Element Design System
+# Element MCP Server
+
+[![Build and Test](https://github.com/ShaydeNofziger/element-mcp/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/ShaydeNofziger/element-mcp/actions/workflows/build-and-test.yml)
+
+An MCP (Model Context Protocol) Server for Availity's Element Design System, built on .NET 10.
+
+## Overview
+
+The Element MCP Server provides comprehensive access to Availity's Element Design System documentation through the Model Context Protocol. This enables AI assistants and other MCP clients to query and retrieve detailed information about components, foundations, patterns, and templates used in healthcare applications.
+
+## Features
+
+- **Component Documentation**: Access detailed information about UI components including props, usage examples, and accessibility guidelines
+- **Foundation Documentation**: Query design system foundations like colors, typography, spacing, elevation, and theming
+- **Pattern Documentation**: Explore reusable design patterns for common healthcare application scenarios
+- **Template Documentation**: Access pre-built layout templates for rapid application development
+- **Search Functionality**: Search across all documentation categories with a single query
+- **.NET 10**: Built on the latest .NET platform for optimal performance and cross-platform support
+
+## About Availity Element Design System
+
+Availity Element is a modern React-based design system built on Material UI with healthcare-specific customizations. It provides:
+
+- **React Components**: Pre-built, accessible components for healthcare applications
+- **Design Tokens**: Consistent styling through `@availity/design-tokens`
+- **Material UI Foundation**: Built on top of Material UI with Availity theming
+- **Healthcare Focus**: Optimized for healthcare and enterprise workflows
+
+**Official Resources**:
+- Documentation: https://availity.github.io/element/
+- GitHub Repository: https://github.com/Availity/element
+- Storybook: https://availity.github.io/element/?path=/docs/element--docs
+
+## Installation
+
+### Prerequisites
+
+- .NET 10.0 SDK or later
+- An MCP-compatible client (e.g., Claude Desktop, GitHub Copilot)
+
+### Install from NuGet
+
+```bash
+dotnet tool install --global ElementMcpServer
+```
+
+### Build from Source
+
+```bash
+git clone https://github.com/ShaydeNofziger/element-mcp.git
+cd element-mcp/src
+dotnet build
+dotnet run
+```
+
+## Usage
+
+### With Claude Desktop
+
+Add the server to your Claude Desktop configuration (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+
+```json
+{
+  "mcpServers": {
+    "element": {
+      "command": "dotnet",
+      "args": ["tool", "run", "ElementMcpServer"]
+    }
+  }
+}
+```
+
+### With GitHub Copilot
+
+Configure in your VS Code settings or use the MCP extension to connect to the server.
+
+### Standalone Testing
+
+Run the server directly:
+
+```bash
+cd src
+dotnet run
+```
+
+The server uses stdio transport and communicates via JSON-RPC over stdin/stdout.
+
+## Available Tools
+
+The Element MCP Server provides the following tools for querying documentation:
+
+### Component Tools
+
+- **`ListComponents`**: List all available components
+- **`GetComponent`**: Get detailed information about a specific component (e.g., 'button', 'card', 'textfield')
+- **`GetComponentsByCategory`**: Get components in a category (e.g., 'Inputs', 'Surfaces', 'Feedback')
+- **`ListComponentCategories`**: List all component categories
+
+### Foundation Tools
+
+- **`ListFoundations`**: List all design foundations
+- **`GetFoundation`**: Get details about a foundation (e.g., 'colors', 'typography', 'spacing')
+- **`GetFoundationsByType`**: Get foundations by type
+- **`ListFoundationTypes`**: List all foundation types
+
+### Pattern Tools
+
+- **`ListPatterns`**: List all design patterns
+- **`GetPattern`**: Get details about a pattern (e.g., 'form-validation', 'data-loading')
+- **`GetPatternsByCategory`**: Get patterns in a category
+- **`ListPatternCategories`**: List all pattern categories
+
+### Template Tools
+
+- **`ListTemplates`**: List all templates
+- **`GetTemplate`**: Get details about a template (e.g., 'dashboard', 'form-page')
+- **`GetTemplatesByType`**: Get templates by type
+- **`ListTemplateTypes`**: List all template types
+
+### Search Tools
+
+- **`Search`**: Search across all documentation for a query
+
+## Example Queries
+
+Once connected to an MCP client, you can ask questions like:
+
+- "What components are available in the Element Design System?"
+- "Show me how to use the Button component"
+- "What are the color tokens in the Element design system?"
+- "Give me an example of the form validation pattern"
+- "What templates are available for dashboards?"
+- "Search for dialog components"
+
+## Architecture
+
+The Element MCP Server is built with the following architecture:
+
+```
+ElementMcpServer/
+├── Models/              # Data models for components, foundations, patterns, templates
+├── Data/                # Data service providing access to Element documentation
+├── Tools/               # MCP tool implementations
+│   ├── ComponentTools.cs
+│   ├── FoundationTools.cs
+│   ├── PatternTools.cs
+│   ├── TemplateTools.cs
+│   └── SearchTools.cs
+├── Program.cs           # Application entry point and MCP server configuration
+└── .mcp/
+    └── server.json      # MCP server metadata
+```
+
+### Key Components
+
+- **Models**: Strongly-typed C# records representing the Element Design System entities
+- **ElementDataService**: Provides in-memory data access with filtering and search capabilities
+- **MCP Tools**: Decorated with `[McpServerTool]` attributes to expose functionality to MCP clients
+- **Stdio Transport**: Uses standard input/output for communication with MCP clients
+
+## Development
+
+### Building
+
+```bash
+cd src
+dotnet build
+```
+
+### Testing
+
+Run the server and test with an MCP client or use the included test scripts:
+
+```bash
+cd src
+dotnet run
+```
+
+The server will start and listen for MCP protocol messages on stdin.
+
+### Adding New Documentation
+
+To add or update Element documentation:
+
+1. Update the data initialization methods in `Data/ElementDataService.cs`
+2. Rebuild the project
+3. Test with an MCP client
+
+## CI/CD
+
+The project includes automated GitHub Actions workflows for continuous integration:
+
+- **Build and Test**: Automatically runs on pull requests and pushes to main/master
+  - Builds the project on Ubuntu, Windows, and macOS
+  - Verifies server startup
+  - Validates project structure and all required files
+  - Creates build summary with results
+
+The workflow ensures code quality and cross-platform compatibility before merging changes.
+
+## Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Ensure CI/CD checks pass
+5. Submit a pull request
+
+All pull requests are automatically validated by the CI/CD pipeline.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Availity](https://www.availity.com/) for creating the Element Design System
+- [Microsoft](https://github.com/microsoft/mcp-dotnet-samples) for the MCP .NET SDK
+- The Model Context Protocol community
+
+## Support
+
+For issues and questions:
+- GitHub Issues: https://github.com/ShaydeNofziger/element-mcp/issues
+- Element Documentation: https://availity.github.io/element/
+- MCP Specification: https://modelcontextprotocol.io/
+
+## Version History
+
+### 1.0.0 (2026-02-04)
+- Initial release
+- Support for components, foundations, patterns, and templates
+- Full search functionality
+- .NET 10 support
+- Stdio transport

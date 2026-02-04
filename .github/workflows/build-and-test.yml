@@ -1,0 +1,191 @@
+name: Build and Test
+
+on:
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'src/**'
+      - '.github/workflows/**'
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'src/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build and Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Display .NET version
+      run: dotnet --version
+
+    - name: Restore dependencies
+      run: dotnet restore src/ElementMcpServer.csproj
+
+    - name: Build project
+      run: dotnet build src/ElementMcpServer.csproj --configuration Release --no-restore
+
+    - name: Verify server startup (Linux/macOS)
+      if: runner.os != 'Windows'
+      run: |
+        cd src
+        # Start server in background
+        dotnet run --no-build --configuration Release > server-output.log 2>&1 &
+        SERVER_PID=$!
+        
+        # Wait up to 5 seconds for server to start
+        for i in {1..50}; do
+          if grep -q "Application started" server-output.log 2>/dev/null; then
+            echo "✅ Server started successfully"
+            kill $SERVER_PID 2>/dev/null || true
+            exit 0
+          fi
+          sleep 0.1
+        done
+        
+        # Server didn't start in time
+        echo "❌ Server failed to start"
+        cat server-output.log
+        kill $SERVER_PID 2>/dev/null || true
+        exit 1
+
+    - name: Verify server startup (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        cd src
+        $job = Start-Job -ScriptBlock { 
+          dotnet run --no-build --configuration Release 2>&1 
+        }
+        Start-Sleep -Seconds 5
+        $output = Receive-Job -Job $job
+        Stop-Job -Job $job
+        Remove-Job -Job $job
+        $output | Out-File -FilePath server-output.log
+        if ($output -match "Application started") {
+          Write-Host "✅ Server started successfully"
+          exit 0
+        } else {
+          Write-Host "❌ Server failed to start"
+          Get-Content server-output.log
+          exit 1
+        }
+
+    - name: Upload server logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: server-logs-${{ matrix.os }}
+        path: src/server-output.log
+        if-no-files-found: ignore
+
+  validate-project:
+    name: Validate Project Configuration
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Check project file
+      run: |
+        echo "Validating ElementMcpServer.csproj..."
+        if [ -f "src/ElementMcpServer.csproj" ]; then
+          echo "✅ Project file exists"
+        else
+          echo "❌ Project file not found"
+          exit 1
+        fi
+
+    - name: Check MCP server metadata
+      run: |
+        echo "Validating .mcp/server.json..."
+        if [ -f "src/.mcp/server.json" ]; then
+          echo "✅ MCP server metadata exists"
+          cat src/.mcp/server.json
+        else
+          echo "❌ MCP server metadata not found"
+          exit 1
+        fi
+
+    - name: Verify data models
+      run: |
+        echo "Checking for data models..."
+        models=("Component.cs" "Foundation.cs" "Pattern.cs" "Template.cs")
+        for model in "${models[@]}"; do
+          if [ -f "src/Models/$model" ]; then
+            echo "✅ $model exists"
+          else
+            echo "❌ $model not found"
+            exit 1
+          fi
+        done
+
+    - name: Verify MCP tools
+      run: |
+        echo "Checking for MCP tools..."
+        tools=("ComponentTools.cs" "FoundationTools.cs" "PatternTools.cs" "TemplateTools.cs" "SearchTools.cs")
+        for tool in "${tools[@]}"; do
+          if [ -f "src/Tools/$tool" ]; then
+            echo "✅ $tool exists"
+          else
+            echo "❌ $tool not found"
+            exit 1
+          fi
+        done
+
+    - name: Verify data service
+      run: |
+        echo "Checking for data service..."
+        if [ -f "src/Data/ElementDataService.cs" ]; then
+          echo "✅ ElementDataService.cs exists"
+        else
+          echo "❌ ElementDataService.cs not found"
+          exit 1
+        fi
+
+  build-summary:
+    name: Build Summary
+    runs-on: ubuntu-latest
+    needs: [build-and-test, validate-project]
+    if: always()
+
+    steps:
+    - name: Check build results
+      run: |
+        echo "## Build and Test Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
+        echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+        echo "| Build and Test | ${{ needs.build-and-test.result }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Validate Project | ${{ needs.validate-project.result }} |" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ needs.build-and-test.result }}" == "success" ] && [ "${{ needs.validate-project.result }}" == "success" ]; then
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All checks passed! The Element MCP Server is ready." >> $GITHUB_STEP_SUMMARY
+          exit 0
+        else
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "❌ Some checks failed. Please review the logs." >> $GITHUB_STEP_SUMMARY
+          exit 1
+        fi
