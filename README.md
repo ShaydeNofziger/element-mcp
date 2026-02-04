@@ -11,6 +11,7 @@ The Element MCP Server provides comprehensive access to Availity's Element Desig
 ## Features
 
 - **Component Documentation**: Access detailed information about UI components including props, usage examples, and accessibility guidelines
+- **Dynamic GitHub Integration**: Automatically fetches component data from Availity's Storybook and enriches results with direct GitHub repository links
 - **Foundation Documentation**: Query design system foundations like colors, typography, spacing, elevation, and theming
 - **Pattern Documentation**: Explore reusable design patterns for common healthcare application scenarios
 - **Template Documentation**: Access pre-built layout templates for rapid application development
@@ -132,6 +133,29 @@ Once connected to an MCP client, you can ask questions like:
 - "What templates are available for dashboards?"
 - "Search for dialog components"
 
+### Example Response
+
+When you query for a component, you'll receive enriched data including GitHub links:
+
+```json
+{
+  "Id": "button",
+  "Name": "Button",
+  "Category": "Inputs",
+  "Description": "Buttons allow users to trigger actions and navigate throughout the application.",
+  "Usage": "Use buttons to trigger actions like submitting forms, opening dialogs, or navigating.",
+  "StorybookUrl": "https://availity.github.io/element/?path=/docs/components-button--docs",
+  "ImportPath": "./packages/button/introduction.mdx",
+  "GitHubUrl": "https://github.com/Availity/element/tree/main/packages/button/introduction.mdx",
+  "GitHubPackageUrl": "https://github.com/Availity/element/tree/main/packages/button"
+}
+```
+
+The enriched properties provide:
+- **ImportPath**: Location of the component documentation in the repository
+- **GitHubUrl**: Direct link to view the component documentation on GitHub
+- **GitHubPackageUrl**: Link to browse the entire component package directory
+
 ## Architecture
 
 The Element MCP Server is built with the following architecture:
@@ -140,6 +164,9 @@ The Element MCP Server is built with the following architecture:
 ElementMcpServer/
 ├── Models/              # Data models for components, foundations, patterns, templates
 ├── Data/                # Data service providing access to Element documentation
+├── Services/            # Support services
+│   ├── StorybookService.cs        # Fetches data from Availity Storybook
+│   └── DataEnrichmentService.cs   # Enriches components with GitHub links
 ├── Tools/               # MCP tool implementations
 │   ├── ComponentTools.cs
 │   ├── FoundationTools.cs
@@ -155,8 +182,23 @@ ElementMcpServer/
 
 - **Models**: Strongly-typed C# records representing the Element Design System entities
 - **ElementDataService**: Provides in-memory data access with filtering and search capabilities
+- **StorybookService**: Fetches and parses the Storybook index from https://availity.github.io/element/index.json
+- **DataEnrichmentService**: Background service that enriches component data during startup with GitHub URLs and import paths
 - **MCP Tools**: Decorated with `[McpServerTool]` attributes to expose functionality to MCP clients
 - **Stdio Transport**: Uses standard input/output for communication with MCP clients
+
+### Dynamic Data Enrichment
+
+On startup, the server:
+1. Loads static component documentation from local JSON files
+2. Fetches the latest Storybook index from Availity's GitHub Pages
+3. Matches components with their Storybook entries
+4. Enriches each component with:
+   - **ImportPath**: The file path in the repository (e.g., `./packages/button/introduction.mdx`)
+   - **GitHubUrl**: Direct link to the component file on GitHub
+   - **GitHubPackageUrl**: Link to the package directory on GitHub
+
+This ensures users always get direct links to the source code for each component.
 
 ## Development
 
@@ -228,6 +270,12 @@ For issues and questions:
 - MCP Specification: https://modelcontextprotocol.io/
 
 ## Version History
+
+### 1.1.0 (2026-02-04)
+- **NEW**: Dynamic Storybook integration - fetches component data from https://availity.github.io/element/index.json
+- **NEW**: Component responses now include GitHub repository links (GitHubUrl, GitHubPackageUrl, ImportPath)
+- **NEW**: Automatic data enrichment on server startup
+- Enriched ~65% of components with direct GitHub links
 
 ### 1.0.0 (2026-02-04)
 - Initial release

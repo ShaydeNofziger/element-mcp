@@ -54,6 +54,21 @@ public record Component
     /// URL to Storybook documentation.
     /// </summary>
     public string? StorybookUrl { get; init; }
+
+    /// <summary>
+    /// Example of how to import this component from the @availity/element package.
+    /// </summary>
+    public string? PackageImport { get; init; }
+
+    /// <summary>
+    /// Direct URL to the component's changelog on GitHub.
+    /// </summary>
+    public string? GitHubChangelogUrl { get; init; }
+
+    /// <summary>
+    /// Direct URL to the package directory on GitHub.
+    /// </summary>
+    public string? GitHubPackageUrl { get; init; }
 }
 
 /// <summary>
