@@ -2,11 +2,17 @@
 
 ## Quick Test
 
-Run the test script:
+Run the cross-platform test script (requires PowerShell Core):
 
-```bash
+```powershell
 cd element-mcp
-./test/test-server.sh
+pwsh test/test-server.ps1
+```
+
+Or on Windows:
+```powershell
+cd element-mcp
+.\test\test-server.ps1
 ```
 
 This will:

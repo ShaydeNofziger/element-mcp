@@ -117,7 +117,8 @@ Successfully implemented a comprehensive Model Context Protocol (MCP) Server for
 
 ### Testing & Verification
 
-1. **test/test-server.sh**
+1. **test/test-server.ps1**
+   - Cross-platform PowerShell test script
    - Automated build verification
    - Server startup test
    - Configuration examples
@@ -175,7 +176,7 @@ element-mcp/
 │   └── README.md                  # Developer docs
 ├── test/                          # Testing resources
 │   ├── TESTING.md
-│   └── test-server.sh
+│   └── test-server.ps1
 ├── README.md                      # Main documentation
 ├── AGENTS.md                      # Architecture specs
 ├── DEMO.md                        # Quick start demo
