@@ -38,6 +38,7 @@ bld/
 # Test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+server-output.log
 
 # Rider
 .idea/

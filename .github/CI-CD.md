@@ -83,12 +83,25 @@ dotnet build src/ElementMcpServer.csproj --configuration Release --no-restore
 
 # Test server startup (Linux/macOS)
 cd src
-timeout 5s dotnet run --no-build --configuration Release 2>&1 | tee server-output.log
-if grep -q "Application started" server-output.log; then
-  echo "✅ Server started successfully"
-else
-  echo "❌ Server failed to start"
-fi
+# Start server in background
+dotnet run --no-build --configuration Release > server-output.log 2>&1 &
+SERVER_PID=$!
+
+# Wait up to 5 seconds for server to start
+for i in {1..50}; do
+  if grep -q "Application started" server-output.log 2>/dev/null; then
+    echo "✅ Server started successfully"
+    kill $SERVER_PID 2>/dev/null || true
+    exit 0
+  fi
+  sleep 0.1
+done
+
+# Server didn't start in time
+echo "❌ Server failed to start"
+cat server-output.log
+kill $SERVER_PID 2>/dev/null || true
+exit 1
 ```
 
 ### Validate Project Structure
