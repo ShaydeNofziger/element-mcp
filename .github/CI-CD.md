@@ -34,8 +34,8 @@ Runs on multiple operating systems to ensure cross-platform compatibility:
 6. Upload server logs as artifacts
 
 **Server Verification**:
-- **Linux/macOS**: Uses `timeout` to run server for 5 seconds and checks for "Application started" message
-- **Windows**: Uses PowerShell background jobs with similar logic
+- **Linux/macOS**: Starts server as background process and polls for "Application started" message (50 checks × 0.1s = 5 seconds)
+- **Windows**: Uses PowerShell background jobs with similar polling logic
 
 #### 2. Validate Project
 

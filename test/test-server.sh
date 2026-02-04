@@ -19,12 +19,26 @@ echo "✓ Build successful"
 echo ""
 
 echo "Testing server startup..."
-timeout 3 dotnet run 2>&1 | grep -q "Application started"
-if [ $? -eq 0 ]; then
+# Start server in background
+dotnet run > /tmp/server-output.log 2>&1 &
+SERVER_PID=$!
+
+# Wait up to 5 seconds for server to start
+for i in {1..50}; do
+  if grep -q "Application started" /tmp/server-output.log 2>/dev/null; then
     echo "✓ Server starts successfully"
-else
-    echo "❌ Server failed to start"
-    exit 1
+    kill $SERVER_PID 2>/dev/null || true
+    break
+  fi
+  sleep 0.1
+done
+
+# Check if we found the message
+if ! grep -q "Application started" /tmp/server-output.log 2>/dev/null; then
+  echo "❌ Server failed to start"
+  cat /tmp/server-output.log
+  kill $SERVER_PID 2>/dev/null || true
+  exit 1
 fi
 echo ""
 
