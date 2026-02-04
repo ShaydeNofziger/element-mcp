@@ -58,14 +58,17 @@ public class ElementDataService
                     
                     if (storybookEntry?.ImportPath != null)
                     {
-                        var gitHubUrl = _storybookService.ConvertImportPathToGitHubUrl(storybookEntry.ImportPath);
+                        var changelogUrl = _storybookService.ConvertImportPathToChangelogUrl(storybookEntry.ImportPath);
                         var packageUrl = _storybookService.GetGitHubPackageUrl(storybookEntry.ImportPath);
+                        var packageImport = _storybookService.GeneratePackageImport(component.Name, storybookEntry.ImportPath);
+                        var storybookIntroUrl = _storybookService.GenerateStorybookIntroductionUrl(storybookEntry.Id);
                         
                         var enrichedComponent = component with
                         {
-                            ImportPath = storybookEntry.ImportPath,
-                            GitHubUrl = gitHubUrl,
-                            GitHubPackageUrl = packageUrl
+                            PackageImport = packageImport,
+                            GitHubChangelogUrl = changelogUrl,
+                            GitHubPackageUrl = packageUrl,
+                            StorybookUrl = storybookIntroUrl ?? component.StorybookUrl // Use new URL or keep original
                         };
                         
                         enrichedComponents.Add(enrichedComponent);
@@ -90,7 +93,7 @@ public class ElementDataService
             
             _enrichmentCompleted = true;
             _logger.LogInformation("Component enrichment completed. {Count} components enriched", 
-                enrichedComponents.Count(c => c.GitHubUrl != null));
+                enrichedComponents.Count(c => c.GitHubChangelogUrl != null));
         }
         catch (Exception ex)
         {

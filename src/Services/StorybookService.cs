@@ -100,13 +100,58 @@ public class StorybookService
     }
 
     /// <summary>
-    /// Converts a Storybook import path to a GitHub URL.
+    /// Converts a Storybook import path to a GitHub CHANGELOG.md URL.
     /// </summary>
-    public string ConvertImportPathToGitHubUrl(string importPath)
+    public string? ConvertImportPathToChangelogUrl(string importPath)
     {
         // Remove leading "./" from path
         var cleanPath = importPath.TrimStart('.', '/');
-        return $"{GitHubBaseUrl}/{cleanPath}";
+        
+        // Extract the package directory (e.g., "packages/button")
+        var parts = cleanPath.Split('/');
+        if (parts.Length >= 2 && parts[0] == "packages")
+        {
+            var packagePath = $"{parts[0]}/{parts[1]}";
+            return $"{GitHubBaseUrl}/{packagePath}/CHANGELOG.md";
+        }
+        
+        return null;
+    }
+
+    /// <summary>
+    /// Generates an example import statement for a component based on its import path.
+    /// </summary>
+    public string? GeneratePackageImport(string componentName, string importPath)
+    {
+        // Remove leading "./" from path
+        var cleanPath = importPath.TrimStart('.', '/');
+        
+        // Extract the package directory (e.g., "packages/button")
+        var parts = cleanPath.Split('/');
+        if (parts.Length >= 2 && parts[0] == "packages")
+        {
+            var packageName = parts[1];
+            // Convert package name to proper case for import (e.g., "button" -> "Button")
+            var componentForImport = componentName;
+            return $"import {{ {componentForImport} }} from '@availity/mui-{packageName}';";
+        }
+        
+        return null;
+    }
+
+    /// <summary>
+    /// Generates the correct Storybook URL pointing to the introduction page.
+    /// </summary>
+    public string? GenerateStorybookIntroductionUrl(string? storybookEntryId)
+    {
+        if (string.IsNullOrEmpty(storybookEntryId))
+        {
+            return null;
+        }
+        
+        // The entry ID is already in the format "components-button-introduction--docs"
+        // We need to convert it to the Storybook URL format
+        return $"https://availity.github.io/element/?path=/docs/{storybookEntryId}";
     }
 
     /// <summary>

@@ -56,14 +56,14 @@ public record Component
     public string? StorybookUrl { get; init; }
 
     /// <summary>
-    /// File path in the Availity Element repository (e.g., "./packages/button/introduction.mdx").
+    /// Example of how to import this component from the @availity/element package.
     /// </summary>
-    public string? ImportPath { get; init; }
+    public string? PackageImport { get; init; }
 
     /// <summary>
-    /// Direct URL to the component file on GitHub.
+    /// Direct URL to the component's changelog on GitHub.
     /// </summary>
-    public string? GitHubUrl { get; init; }
+    public string? GitHubChangelogUrl { get; init; }
 
     /// <summary>
     /// Direct URL to the package directory on GitHub.
