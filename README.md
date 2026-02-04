@@ -281,9 +281,14 @@ For issues and questions:
 
 ### 1.1.0 (2026-02-04)
 - **NEW**: Dynamic Storybook integration - fetches component data from https://availity.github.io/element/index.json
-- **NEW**: Component responses now include GitHub repository links (GitHubUrl, GitHubPackageUrl, ImportPath)
-- **NEW**: Automatic data enrichment on server startup
-- Enriched ~65% of components with direct GitHub links
+- **NEW**: Component responses now include enriched properties:
+  - `PackageImport`: Example import statement from @availity/element
+  - `GitHubChangelogUrl`: Direct link to component's CHANGELOG.md
+  - `GitHubPackageUrl`: Link to browse component package directory
+  - `StorybookUrl`: Updated to point to introduction page
+- **NEW**: Automatic data enrichment on server startup via DataEnrichmentService
+- **NEW**: StorybookService for fetching and parsing Storybook data
+- **NEW**: JSON-based data storage (element-data.json)
 
 ### 1.0.0 (2026-02-04)
 - Initial release
