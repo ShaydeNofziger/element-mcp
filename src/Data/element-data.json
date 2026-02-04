@@ -1,0 +1,532 @@
+{
+  "components": [
+    {
+      "id": "button",
+      "name": "Button",
+      "category": "Inputs",
+      "description": "Buttons allow users to trigger actions and navigate throughout the application.",
+      "usage": "Use buttons to trigger actions like submitting forms, opening dialogs, or navigating.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-button--docs"
+    },
+    {
+      "id": "icon-button",
+      "name": "IconButton",
+      "category": "Inputs",
+      "description": "Icon buttons are buttons that only contain an icon without text labels.",
+      "usage": "Use for actions where an icon clearly represents the action, like delete, edit, or close.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-iconbutton--docs"
+    },
+    {
+      "id": "button-group",
+      "name": "ButtonGroup",
+      "category": "Inputs",
+      "description": "Button groups combine related buttons together.",
+      "usage": "Use to group related actions or to create segmented controls.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-buttongroup--docs"
+    },
+    {
+      "id": "textfield",
+      "name": "TextField",
+      "category": "Inputs",
+      "description": "Text fields let users enter and edit text with validation support.",
+      "usage": "Use for single-line text input with labels, helper text, and validation.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/form-components-textfield--docs"
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "category": "Inputs",
+      "description": "Select components allow users to choose from a list of options.",
+      "usage": "Use when users need to select one or multiple options from a list.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/form-components-select--docs"
+    },
+    {
+      "id": "autocomplete",
+      "name": "Autocomplete",
+      "category": "Inputs",
+      "description": "Autocomplete provides suggestions as users type in a text field.",
+      "usage": "Use for searchable dropdowns with many options or when users need suggestions.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/form-components-autocomplete--docs"
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "category": "Inputs",
+      "description": "Checkboxes allow users to select one or more items from a set.",
+      "usage": "Use for binary choices or to select multiple items from a list.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/form-components-checkbox--docs"
+    },
+    {
+      "id": "radio",
+      "name": "Radio",
+      "category": "Inputs",
+      "description": "Radio buttons allow users to select exactly one option from a set.",
+      "usage": "Use when users must select exactly one option from multiple choices.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/form-components-radio--docs"
+    },
+    {
+      "id": "switch",
+      "name": "Switch",
+      "category": "Inputs",
+      "description": "Switches toggle between two states, on or off.",
+      "usage": "Use for settings that take effect immediately when changed.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/form-components-switch--docs"
+    },
+    {
+      "id": "slider",
+      "name": "Slider",
+      "category": "Inputs",
+      "description": "Sliders allow users to select a value from a range.",
+      "usage": "Use for selecting numeric values within a range, like volume or brightness.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/form-components-slider--docs"
+    },
+    {
+      "id": "date-picker",
+      "name": "DatePicker",
+      "category": "Inputs",
+      "description": "Date pickers allow users to select dates from a calendar interface.",
+      "usage": "Use for date selection in forms, scheduling, or filtering.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/form-components-datepicker--docs"
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "category": "Surfaces",
+      "description": "Cards contain content and actions about a single subject.",
+      "usage": "Use to group related information and make it easily scannable.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-card--docs"
+    },
+    {
+      "id": "paper",
+      "name": "Paper",
+      "category": "Surfaces",
+      "description": "Paper provides elevation and background styling for surfaces.",
+      "usage": "Use as a container to create visual hierarchy and separation.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-paper--docs"
+    },
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "category": "Surfaces",
+      "description": "Accordions contain collapsible panels for organizing content.",
+      "usage": "Use to show/hide sections of related content to reduce page length.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-accordion--docs"
+    },
+    {
+      "id": "app-bar",
+      "name": "AppBar",
+      "category": "Surfaces",
+      "description": "App bars display information and actions at the top of a screen.",
+      "usage": "Use for navigation, branding, and primary actions.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-appbar--docs"
+    },
+    {
+      "id": "toolbar",
+      "name": "Toolbar",
+      "category": "Surfaces",
+      "description": "Toolbars are containers for grouping action items.",
+      "usage": "Use within App Bars or as standalone action containers.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-toolbar--docs"
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "category": "Feedback",
+      "description": "Alerts display brief messages for users without interrupting workflow.",
+      "usage": "Use to provide feedback about actions or communicate important information.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-alert--docs"
+    },
+    {
+      "id": "snackbar",
+      "name": "Snackbar",
+      "category": "Feedback",
+      "description": "Snackbars provide brief messages at the bottom of the screen.",
+      "usage": "Use for short-lived messages about application processes.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-snackbar--docs"
+    },
+    {
+      "id": "dialog",
+      "name": "Dialog",
+      "category": "Feedback",
+      "description": "Dialogs inform users about tasks and can contain critical information.",
+      "usage": "Use for important interactions that require user attention or decisions.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-dialog--docs"
+    },
+    {
+      "id": "progress",
+      "name": "Progress",
+      "category": "Feedback",
+      "description": "Progress indicators show the status of ongoing processes.",
+      "usage": "Use to show determinate or indeterminate progress of operations.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-progress--docs"
+    },
+    {
+      "id": "circular-progress",
+      "name": "CircularProgress",
+      "category": "Feedback",
+      "description": "Circular progress indicators display progress in a circular format.",
+      "usage": "Use for loading states or indeterminate operations.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-circularprogress--docs"
+    },
+    {
+      "id": "linear-progress",
+      "name": "LinearProgress",
+      "category": "Feedback",
+      "description": "Linear progress indicators display progress as a horizontal bar.",
+      "usage": "Use when showing determinable progress or loading states.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-linearprogress--docs"
+    },
+    {
+      "id": "backdrop",
+      "name": "Backdrop",
+      "category": "Feedback",
+      "description": "Backdrops dim the background content to emphasize foreground elements.",
+      "usage": "Use with dialogs, drawers, or other overlay components.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-backdrop--docs"
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "category": "Feedback",
+      "description": "Skeletons display placeholder content while data is loading.",
+      "usage": "Use to improve perceived performance during content loading.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-skeleton--docs"
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "category": "Data Display",
+      "description": "Tables display sets of data in rows and columns with sorting and filtering.",
+      "usage": "Use to organize and display structured data for scanning and comparison.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-table--docs"
+    },
+    {
+      "id": "list",
+      "name": "List",
+      "category": "Data Display",
+      "description": "Lists display content in vertical arrangement with optional actions.",
+      "usage": "Use for displaying continuous collections of text or images.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-list--docs"
+    },
+    {
+      "id": "chip",
+      "name": "Chip",
+      "category": "Data Display",
+      "description": "Chips are compact elements representing input, attribute, or action.",
+      "usage": "Use for tags, filters, or representing discrete information.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-chip--docs"
+    },
+    {
+      "id": "avatar",
+      "name": "Avatar",
+      "category": "Data Display",
+      "description": "Avatars represent users or entities with images, icons, or letters.",
+      "usage": "Use in user profiles, lists, or to represent objects visually.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-avatar--docs"
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "category": "Data Display",
+      "description": "Badges generate small labels to draw attention to content.",
+      "usage": "Use to show counts, status indicators, or notifications.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-badge--docs"
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "category": "Data Display",
+      "description": "Tooltips display informative text on hover or focus.",
+      "usage": "Use to provide additional context or help text for UI elements.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-tooltip--docs"
+    },
+    {
+      "id": "typography",
+      "name": "Typography",
+      "category": "Data Display",
+      "description": "Typography components provide consistent text styling.",
+      "usage": "Use for headings, body text, and other text content with proper hierarchy.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-typography--docs"
+    },
+    {
+      "id": "divider",
+      "name": "Divider",
+      "category": "Data Display",
+      "description": "Dividers separate content into distinct groups.",
+      "usage": "Use to create visual separation between content sections.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-divider--docs"
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "category": "Navigation",
+      "description": "Tabs organize content into separate views where only one is visible at a time.",
+      "usage": "Use to organize related content that doesn't need to be viewed simultaneously.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-tabs--docs"
+    },
+    {
+      "id": "drawer",
+      "name": "Drawer",
+      "category": "Navigation",
+      "description": "Drawers slide in from the side to provide navigation or content.",
+      "usage": "Use for navigation menus or to show additional content.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-drawer--docs"
+    },
+    {
+      "id": "menu",
+      "name": "Menu",
+      "category": "Navigation",
+      "description": "Menus display a list of choices on temporary surfaces.",
+      "usage": "Use for action overflow, context menus, or dropdown navigation.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-menu--docs"
+    },
+    {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "category": "Navigation",
+      "description": "Breadcrumbs show the user's location in the site hierarchy.",
+      "usage": "Use to help users navigate back through hierarchical content.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-breadcrumbs--docs"
+    },
+    {
+      "id": "link",
+      "name": "Link",
+      "category": "Navigation",
+      "description": "Links navigate users to different pages or sections.",
+      "usage": "Use for navigation between pages or to external resources.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-link--docs"
+    },
+    {
+      "id": "stepper",
+      "name": "Stepper",
+      "category": "Navigation",
+      "description": "Steppers display progress through numbered steps.",
+      "usage": "Use for multi-step forms or processes to show progress and navigation.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-stepper--docs"
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "category": "Navigation",
+      "description": "Pagination enables navigation through pages of content.",
+      "usage": "Use to break large datasets into manageable pages.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-pagination--docs"
+    },
+    {
+      "id": "bottom-navigation",
+      "name": "BottomNavigation",
+      "category": "Navigation",
+      "description": "Bottom navigation bars allow movement between primary destinations.",
+      "usage": "Use for mobile-first navigation between 3-5 top-level views.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-bottomnavigation--docs"
+    },
+    {
+      "id": "box",
+      "name": "Box",
+      "category": "Layout",
+      "description": "Box is a wrapper component for most CSS utility needs.",
+      "usage": "Use as a generic container with sx prop for styling.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-box--docs"
+    },
+    {
+      "id": "container",
+      "name": "Container",
+      "category": "Layout",
+      "description": "Container centers content horizontally with responsive max-width.",
+      "usage": "Use to contain page content with consistent margins.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-container--docs"
+    },
+    {
+      "id": "grid",
+      "name": "Grid",
+      "category": "Layout",
+      "description": "Grid creates responsive layouts using a 12-column system.",
+      "usage": "Use for complex responsive layouts with multiple columns.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-grid--docs"
+    },
+    {
+      "id": "stack",
+      "name": "Stack",
+      "category": "Layout",
+      "description": "Stack arranges items vertically or horizontally with consistent spacing.",
+      "usage": "Use for one-dimensional layouts with automatic spacing.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-stack--docs"
+    },
+    {
+      "id": "image-list",
+      "name": "ImageList",
+      "category": "Layout",
+      "description": "Image lists display collections of images in organized grids.",
+      "usage": "Use to display photo galleries or image collections.",
+      "storybookUrl": "https://availity.github.io/element/?path=/docs/components-imagelist--docs"
+    }
+  ],
+  "foundations": [
+    {
+      "id": "colors",
+      "name": "Colors",
+      "type": "Color",
+      "description": "Element uses a comprehensive color system with Availity branding.",
+      "usage": "Access colors through design tokens for consistent theming."
+    },
+    {
+      "id": "typography",
+      "name": "Typography",
+      "type": "Typography",
+      "description": "Typography system based on Material Design with Availity fonts.",
+      "usage": "Use Typography component or theme tokens for consistent text styles."
+    },
+    {
+      "id": "spacing",
+      "name": "Spacing",
+      "type": "Spacing",
+      "description": "8px grid system for consistent spacing throughout the design.",
+      "usage": "Use theme spacing function for margins and padding."
+    },
+    {
+      "id": "elevation",
+      "name": "Elevation",
+      "type": "Elevation",
+      "description": "Elevation system using shadows to show depth (0-24 levels).",
+      "usage": "Use elevation to create visual hierarchy and separate surfaces."
+    },
+    {
+      "id": "breakpoints",
+      "name": "Breakpoints",
+      "type": "Responsive",
+      "description": "Responsive breakpoints for different screen sizes.",
+      "usage": "Use breakpoints for responsive design and mobile-first layouts."
+    },
+    {
+      "id": "theme",
+      "name": "Theme",
+      "type": "Theme",
+      "description": "ThemeProvider applies Availity design tokens across the app.",
+      "usage": "Wrap app with ThemeProvider for consistent theming."
+    },
+    {
+      "id": "icons",
+      "name": "Icons",
+      "type": "Iconography",
+      "description": "Material Design icon system integrated with Element.",
+      "usage": "Use icon components for consistent visual language."
+    },
+    {
+      "id": "shape",
+      "name": "Shape",
+      "type": "Shape",
+      "description": "Border radius and shape system for components.",
+      "usage": "Use shape tokens for consistent corner rounding."
+    }
+  ],
+  "patterns": [
+    {
+      "id": "form-validation",
+      "name": "Form Validation",
+      "category": "Forms",
+      "description": "Consistent form validation with real-time feedback.",
+      "problem": "Forms need consistent validation and error messaging.",
+      "solution": "Use Element form components with validation libraries."
+    },
+    {
+      "id": "data-loading",
+      "name": "Data Loading States",
+      "category": "Feedback",
+      "description": "Managing loading, error, and empty states for data fetching.",
+      "problem": "Users need feedback when data is loading or unavailable.",
+      "solution": "Use Progress, Skeleton, and Alert components for different states."
+    },
+    {
+      "id": "modal-workflow",
+      "name": "Modal Workflow",
+      "category": "Navigation",
+      "description": "Multi-step workflows within modal dialogs.",
+      "problem": "Complex workflows need to be contained without leaving context.",
+      "solution": "Use Dialog with Stepper for multi-step processes."
+    },
+    {
+      "id": "search-filter",
+      "name": "Search and Filter",
+      "category": "Data Display",
+      "description": "Search and filtering for data-heavy applications.",
+      "problem": "Users need to find specific information in large datasets.",
+      "solution": "Combine TextField, Autocomplete, and Chip components for filters."
+    },
+    {
+      "id": "responsive-layout",
+      "name": "Responsive Layout",
+      "category": "Layout",
+      "description": "Creating layouts that work across all screen sizes.",
+      "problem": "Content needs to adapt to different viewport sizes.",
+      "solution": "Use Grid and responsive breakpoints for flexible layouts."
+    },
+    {
+      "id": "navigation-patterns",
+      "name": "Navigation Patterns",
+      "category": "Navigation",
+      "description": "Common navigation patterns for healthcare applications.",
+      "problem": "Users need consistent navigation across the application.",
+      "solution": "Use AppBar, Drawer, and Tabs for hierarchical navigation."
+    },
+    {
+      "id": "data-tables",
+      "name": "Data Tables",
+      "category": "Data Display",
+      "description": "Displaying and interacting with tabular data.",
+      "problem": "Large datasets need sorting, filtering, and pagination.",
+      "solution": "Use Table component with built-in sorting and filtering."
+    },
+    {
+      "id": "form-layouts",
+      "name": "Form Layouts",
+      "category": "Forms",
+      "description": "Structuring forms for optimal data entry.",
+      "problem": "Forms need logical grouping and clear visual hierarchy.",
+      "solution": "Use Grid, Card, and proper field spacing for form layouts."
+    }
+  ],
+  "templates": [
+    {
+      "id": "dashboard",
+      "name": "Dashboard Layout",
+      "type": "Page Layout",
+      "description": "Dashboard with metrics, charts, and data widgets.",
+      "useCase": "Display key metrics and data visualizations."
+    },
+    {
+      "id": "form-page",
+      "name": "Form Page",
+      "type": "Form",
+      "description": "Multi-section form with validation and submission.",
+      "useCase": "Patient intake, provider registration, claims submission."
+    },
+    {
+      "id": "list-view",
+      "name": "List View",
+      "type": "Data Display",
+      "description": "Searchable, filterable list with pagination.",
+      "useCase": "Patient lists, provider directories, claims records."
+    },
+    {
+      "id": "detail-view",
+      "name": "Detail View",
+      "type": "Page Layout",
+      "description": "Detailed information with tabs for organization.",
+      "useCase": "Patient details, provider profiles, claim details."
+    },
+    {
+      "id": "wizard",
+      "name": "Wizard Flow",
+      "type": "Form",
+      "description": "Multi-step process with progress indication.",
+      "useCase": "Onboarding flows, multi-step data entry."
+    },
+    {
+      "id": "settings",
+      "name": "Settings Page",
+      "type": "Page Layout",
+      "description": "Configuration and preferences interface.",
+      "useCase": "User settings, application configuration."
+    }
+  ]
+}
