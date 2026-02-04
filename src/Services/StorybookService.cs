@@ -131,9 +131,8 @@ public class StorybookService
         if (parts.Length >= 2 && parts[0] == "packages")
         {
             var packageName = parts[1];
-            // Convert package name to proper case for import (e.g., "button" -> "Button")
-            var componentForImport = componentName;
-            return $"import {{ {componentForImport} }} from '@availity/mui-{packageName}';";
+            // Component name is already in the correct case (e.g., "Button", "TextField")
+            return $"import {{ {componentName} }} from '@availity/mui-{packageName}';";
         }
         
         return null;
@@ -141,6 +140,8 @@ public class StorybookService
 
     /// <summary>
     /// Generates the correct Storybook URL pointing to the introduction page.
+    /// The storybookEntryId parameter should already be in the introduction format
+    /// (e.g., "components-button-introduction--docs") as returned by FindComponentEntryAsync.
     /// </summary>
     public string? GenerateStorybookIntroductionUrl(string? storybookEntryId)
     {
@@ -149,8 +150,7 @@ public class StorybookService
             return null;
         }
         
-        // The entry ID is already in the format "components-button-introduction--docs"
-        // We need to convert it to the Storybook URL format
+        // Convert the entry ID to the Storybook URL format
         return $"https://availity.github.io/element/?path=/docs/{storybookEntryId}";
     }
 
