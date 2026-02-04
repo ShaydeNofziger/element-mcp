@@ -129,11 +129,21 @@ Once published, configure in your IDE:
 The server is built on .NET 10 with the following structure:
 
 - **Models**: Type-safe data models for Component, Foundation, Pattern, Template
-- **Data**: `ElementDataService` provides in-memory documentation data
+- **Data**: 
+  - `element-data.json` - JSON file with all documentation data
+  - `ElementDataService` - Provides in-memory documentation data with enrichment
+- **Services**:
+  - `StorybookService` - Fetches data from Availity's Storybook index
+  - `DataEnrichmentService` - Background service that enriches components at startup
 - **Tools**: MCP tool classes expose functionality to clients
 - **Program.cs**: Entry point with dependency injection and MCP configuration
 
 All tools return JSON-serialized responses for easy consumption by AI assistants.
+
+Component data is loaded from JSON and enriched at startup with:
+- GitHub repository links
+- Component changelog URLs
+- Import statement examples
 
 ## Documentation
 

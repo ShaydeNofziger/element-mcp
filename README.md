@@ -144,17 +144,17 @@ When you query for a component, you'll receive enriched data including GitHub li
   "Category": "Inputs",
   "Description": "Buttons allow users to trigger actions and navigate throughout the application.",
   "Usage": "Use buttons to trigger actions like submitting forms, opening dialogs, or navigating.",
-  "StorybookUrl": "https://availity.github.io/element/?path=/docs/components-button--docs",
-  "ImportPath": "./packages/button/introduction.mdx",
-  "GitHubUrl": "https://github.com/Availity/element/tree/main/packages/button/introduction.mdx",
+  "StorybookUrl": "https://availity.github.io/element/?path=/docs/components-button-introduction--docs",
+  "PackageImport": "import { Button } from '@availity/element';",
+  "GitHubChangelogUrl": "https://github.com/Availity/element/tree/main/packages/button/CHANGELOG.md",
   "GitHubPackageUrl": "https://github.com/Availity/element/tree/main/packages/button"
 }
 ```
 
 The enriched properties provide:
-- **ImportPath**: Location of the component documentation in the repository
-- **GitHubUrl**: Direct link to view the component documentation on GitHub
-- **GitHubPackageUrl**: Link to browse the entire component package directory
+- **PackageImport**: Example of how to import the component from @availity/element
+- **GitHubChangelogUrl**: Direct link to view the component's changelog on GitHub
+- **GitHubPackageUrl**: Link to browse the entire component package directory on GitHub
 
 ## Architecture
 
@@ -163,7 +163,13 @@ The Element MCP Server is built with the following architecture:
 ```
 ElementMcpServer/
 ├── Models/              # Data models for components, foundations, patterns, templates
-├── Data/                # Data service providing access to Element documentation
+│   ├── Component.cs
+│   ├── Foundation.cs
+│   ├── Pattern.cs
+│   └── Template.cs
+├── Data/                # Data storage and service
+│   ├── element-data.json          # Component documentation data
+│   └── ElementDataService.cs      # Data access layer
 ├── Services/            # Support services
 │   ├── StorybookService.cs        # Fetches data from Availity Storybook
 │   └── DataEnrichmentService.cs   # Enriches components with GitHub links
@@ -181,24 +187,26 @@ ElementMcpServer/
 ### Key Components
 
 - **Models**: Strongly-typed C# records representing the Element Design System entities
+- **element-data.json**: JSON file containing all component, foundation, pattern, and template documentation
 - **ElementDataService**: Provides in-memory data access with filtering and search capabilities
 - **StorybookService**: Fetches and parses the Storybook index from https://availity.github.io/element/index.json
-- **DataEnrichmentService**: Background service that enriches component data during startup with GitHub URLs and import paths
+- **DataEnrichmentService**: Background service that enriches component data during startup with GitHub URLs and import examples
 - **MCP Tools**: Decorated with `[McpServerTool]` attributes to expose functionality to MCP clients
 - **Stdio Transport**: Uses standard input/output for communication with MCP clients
 
 ### Dynamic Data Enrichment
 
 On startup, the server:
-1. Loads static component documentation from local JSON files
+1. Loads component documentation from the local `element-data.json` file
 2. Fetches the latest Storybook index from Availity's GitHub Pages
 3. Matches components with their Storybook entries
 4. Enriches each component with:
-   - **ImportPath**: The file path in the repository (e.g., `./packages/button/introduction.mdx`)
-   - **GitHubUrl**: Direct link to the component file on GitHub
-   - **GitHubPackageUrl**: Link to the package directory on GitHub
+   - **PackageImport**: Example import statement (e.g., `import { Button } from '@availity/element';`)
+   - **GitHubChangelogUrl**: Direct link to the component's CHANGELOG.md on GitHub
+   - **GitHubPackageUrl**: Link to browse the package directory on GitHub
+   - **StorybookUrl**: Updated URL pointing to the component's introduction page
 
-This ensures users always get direct links to the source code for each component.
+This ensures users always get direct links to the source code and documentation for each component.
 
 ## Development
 
@@ -273,9 +281,14 @@ For issues and questions:
 
 ### 1.1.0 (2026-02-04)
 - **NEW**: Dynamic Storybook integration - fetches component data from https://availity.github.io/element/index.json
-- **NEW**: Component responses now include GitHub repository links (GitHubUrl, GitHubPackageUrl, ImportPath)
-- **NEW**: Automatic data enrichment on server startup
-- Enriched ~65% of components with direct GitHub links
+- **NEW**: Component responses now include enriched properties:
+  - `PackageImport`: Example import statement from @availity/element
+  - `GitHubChangelogUrl`: Direct link to component's CHANGELOG.md
+  - `GitHubPackageUrl`: Link to browse component package directory
+  - `StorybookUrl`: Updated to point to introduction page
+- **NEW**: Automatic data enrichment on server startup via DataEnrichmentService
+- **NEW**: StorybookService for fetching and parsing Storybook data
+- **NEW**: JSON-based data storage (element-data.json)
 
 ### 1.0.0 (2026-02-04)
 - Initial release

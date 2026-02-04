@@ -157,7 +157,7 @@ Once connected to an MCP client, try these queries:
   "Name": "Button",
   "Category": "Inputs",
   "Description": "Buttons allow users to trigger actions...",
-  "Usage": "Import Button from @availity/element...",
+  "Usage": "Use buttons to trigger actions like submitting forms...",
   "Example": "import { Button } from '@availity/element';\n\n<Button variant=\"contained\">Click Me</Button>",
   "Props": [
     {
@@ -168,7 +168,10 @@ Once connected to an MCP client, try these queries:
     }
   ],
   "Accessibility": "Buttons should have descriptive text...",
-  "StorybookUrl": "https://availity.github.io/element/?path=/docs/components-button--docs",
+  "StorybookUrl": "https://availity.github.io/element/?path=/docs/components-button-introduction--docs",
+  "PackageImport": "import { Button } from '@availity/element';",
+  "GitHubChangelogUrl": "https://github.com/Availity/element/tree/main/packages/button/CHANGELOG.md",
+  "GitHubPackageUrl": "https://github.com/Availity/element/tree/main/packages/button",
   "RelatedComponents": ["IconButton", "ButtonGroup"]
 }
 ```
@@ -235,10 +238,12 @@ dotnet run
 
 ✅ Server builds without errors
 ✅ Server starts and shows "Application started" message
+✅ Server shows "Data enrichment completed successfully" message
 ✅ Client can connect to server
 ✅ All 20+ tools are available
 ✅ Queries return valid JSON responses
-✅ Sample data includes 47 components, 8 foundations, 8 patterns, 6 templates
+✅ Sample data includes 47+ components, 8 foundations, 8 patterns, 6 templates
+✅ Components include enriched properties (PackageImport, GitHubChangelogUrl, GitHubPackageUrl)
 ✅ Search functionality works across all categories
 
 ## Next Steps
