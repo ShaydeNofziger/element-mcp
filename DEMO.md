@@ -69,6 +69,9 @@ Ask the AI assistant questions like:
 - Accessibility information
 - Related components
 - Link to Storybook
+- Import statement (e.g., `import { Button } from '@availity/element';`)
+- GitHub changelog URL
+- GitHub package directory URL
 
 ```
 "What are the primary color tokens?"
@@ -160,6 +163,8 @@ Create `.vscode/mcp.json`:
 ✅ **Comprehensive** - Full examples and guidelines
 ✅ **Searchable** - Find anything quickly
 ✅ **Cross-Platform** - Works on Windows, macOS, Linux
+✅ **Dynamic Integration** - Fetches live data from Storybook
+✅ **GitHub Links** - Direct links to source code and changelogs
 
 ## Architecture Highlights
 
@@ -170,9 +175,11 @@ Element MCP Server (.NET 10)
          ↓
     Tool Layer (5 classes, 20+ tools)
          ↓
-  ElementDataService (Query/Filter/Search)
+  ElementDataService (Query/Filter/Search/Enrichment)
          ↓
-  Data Models (Component/Foundation/Pattern/Template)
+  Services (StorybookService, DataEnrichmentService)
+         ↓
+  Data Models & Storage (Component/Foundation/Pattern/Template + JSON)
 ```
 
 ## Sample Data Included

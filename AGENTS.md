@@ -51,6 +51,7 @@ Enable AI-powered development workflows by providing:
 │  │  - Logging setup                                    │   │
 │  │  - Service registration                             │   │
 │  │  - MCP server initialization                        │   │
+│  │  - Background service startup                       │   │
 │  └─────────────────────┬───────────────────────────────┘   │
 │                        │                                     │
 │  ┌─────────────────────▼───────────────────────────────┐   │
@@ -67,13 +68,27 @@ Enable AI-powered development workflows by providing:
 │                        │                                     │
 │  ┌─────────────────────▼───────────────────────────────┐   │
 │  │          ElementDataService                         │   │
-│  │  - Data initialization                              │   │
+│  │  - Data initialization from JSON                    │   │
 │  │  - Query methods                                    │   │
 │  │  - Filtering logic                                  │   │
 │  │  - Search implementation                            │   │
-│  └─────────────────────┬───────────────────────────────┘   │
-│                        │                                     │
-│  ┌─────────────────────▼───────────────────────────────┐   │
+│  │  - Component enrichment                             │   │
+│  └──────┬──────────────────────────────────────────────┘   │
+│         │                                                    │
+│  ┌──────▼─────────────┐  ┌──────────────────────────┐     │
+│  │  Services Layer    │  │  Data Storage            │     │
+│  │  ┌───────────────┐ │  │  ┌──────────────────┐   │     │
+│  │  │ Storybook     │ │  │  │ element-data.json│   │     │
+│  │  │ Service       │ │  │  │ (Components,     │   │     │
+│  │  └───────────────┘ │  │  │  Foundations,    │   │     │
+│  │  ┌───────────────┐ │  │  │  Patterns,       │   │     │
+│  │  │ Data          │ │  │  │  Templates)      │   │     │
+│  │  │ Enrichment    │ │  │  └──────────────────┘   │     │
+│  │  │ Service       │ │  │                          │     │
+│  │  └───────────────┘ │  └──────────────────────────┘     │
+│  └────────────────────┘                                    │
+│         │                                                    │
+│  ┌──────▼─────────────────────────────────────────────┐   │
 │  │              Data Models                            │   │
 │  │  - Component (with ComponentProp)                   │   │
 │  │  - Foundation                                       │   │
@@ -96,7 +111,19 @@ Enable AI-powered development workflows by providing:
 
 **Key Code**:
 ```csharp
+// Register HttpClient for StorybookService
+builder.Services.AddHttpClient<StorybookService>();
+
+// Register the Storybook Service
+builder.Services.AddSingleton<StorybookService>();
+
+// Register the Element Data Service as a singleton
 builder.Services.AddSingleton<ElementDataService>();
+
+// Register the data enrichment background service
+builder.Services.AddHostedService<DataEnrichmentService>();
+
+// Add the MCP services
 builder.Services
     .AddMcpServer()
     .WithStdioServerTransport()
@@ -116,7 +143,7 @@ builder.Services
 **Models**:
 
 - **Component**: Represents UI components (Button, Card, TextField, etc.)
-  - Properties: Id, Name, Category, Description, Usage, Example, Props, RelatedComponents, Accessibility, StorybookUrl
+  - Properties: Id, Name, Category, Description, Usage, Example, Props, RelatedComponents, Accessibility, StorybookUrl, PackageImport, GitHubChangelogUrl, GitHubPackageUrl
   - Nested: ComponentProp (Name, Type, Required, DefaultValue, Description)
 
 - **Foundation**: Represents design foundations (Colors, Typography, Spacing, etc.)
@@ -138,16 +165,20 @@ builder.Services
 
 **Location**: `src/Data/ElementDataService.cs`
 
-**Purpose**: Central data access layer providing in-memory documentation data.
+**Purpose**: Central data access layer providing in-memory documentation data loaded from JSON file.
 
 **Responsibilities**:
-- Initialize and store documentation data
+- Load documentation data from `element-data.json`
 - Provide query methods for all entity types
 - Implement filtering by category/type
 - Implement cross-entity search functionality
+- Enrich components with Storybook data at startup
 
 **Key Methods**:
 ```csharp
+// Data enrichment
+Task EnrichComponentsAsync()
+
 // Components
 IEnumerable<Component> GetAllComponents()
 Component? GetComponent(string id)
@@ -173,11 +204,50 @@ IEnumerable<object> Search(string query)
 ```
 
 **Data Storage**:
-- In-memory collections for fast access
-- Initialized in constructor via private methods
+- Data loaded from JSON file (`Data/element-data.json`)
+- Stored in-memory collections for fast access
+- Enriched at startup by DataEnrichmentService
 - Case-insensitive querying
 
-#### 4. MCP Tools
+#### 4. StorybookService
+
+**Location**: `src/Services/StorybookService.cs`
+
+**Purpose**: Fetches and parses Storybook index data from Availity's GitHub Pages.
+
+**Responsibilities**:
+- Fetch Storybook index from https://availity.github.io/element/index.json
+- Parse and cache Storybook entries
+- Match components to their Storybook documentation
+- Generate GitHub URLs and import statements
+
+**Key Methods**:
+```csharp
+Task<Dictionary<string, StorybookEntry>> GetStorybookEntriesAsync()
+Task<StorybookEntry?> FindComponentEntryAsync(string componentName, string? storybookUrl)
+string? ConvertImportPathToChangelogUrl(string importPath)
+string? GeneratePackageImport(string componentName, string importPath)
+string? GenerateStorybookIntroductionUrl(string? storybookEntryId)
+string? GetGitHubPackageUrl(string importPath)
+```
+
+#### 5. DataEnrichmentService
+
+**Location**: `src/Services/DataEnrichmentService.cs`
+
+**Purpose**: Background service that enriches component data during application startup.
+
+**Responsibilities**:
+- Start enrichment process when application starts
+- Call ElementDataService.EnrichComponentsAsync()
+- Handle errors gracefully (app starts even if enrichment fails)
+
+**Implementation**:
+- Implements `IHostedService`
+- Runs during application startup (StartAsync)
+- Logs progress and errors
+
+#### 6. MCP Tools
 
 **Location**: `src/Tools/`
 
@@ -222,6 +292,7 @@ public string ToolName(
 
 ```xml
 <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
 <PackageReference Include="ModelContextProtocol" Version="0.5.0-preview.1" />
 ```
 
@@ -233,10 +304,11 @@ public string ToolName(
 
 ### Performance Characteristics
 
-- **Startup Time**: < 1 second
+- **Startup Time**: 2-5 seconds (includes network fetch of Storybook index)
 - **Memory Usage**: ~50-100 MB
 - **Query Response Time**: < 100ms (in-memory data)
 - **Concurrent Connections**: Single client (stdio limitation)
+- **Network Dependency**: Initial fetch from https://availity.github.io/element/index.json
 
 ### Configuration
 
@@ -263,6 +335,9 @@ public record Component
     public List<string>? RelatedComponents { get; init; }
     public string? Accessibility { get; init; }
     public string? StorybookUrl { get; init; }
+    public string? PackageImport { get; init; }
+    public string? GitHubChangelogUrl { get; init; }
+    public string? GitHubPackageUrl { get; init; }
 }
 
 public record ComponentProp
@@ -276,8 +351,9 @@ public record ComponentProp
 ```
 
 **Example Data**:
-- 47 components across 6 categories (examples: Button, Card, TextField, Alert, Table, Dialog)
+- Components loaded from JSON file with 47+ components across categories
 - Categories: Inputs (11), Surfaces (5), Feedback (8), Data Display (8), Navigation (8), Layout (5)
+- Components enriched at startup with GitHub links, import statements, and changelog URLs
 - Complete with props, examples, accessibility info, and Storybook URLs
 
 ### Foundation Model
@@ -402,6 +478,10 @@ public record Template
   "Name": "Button",
   "Category": "Inputs",
   "Description": "...",
+  "StorybookUrl": "https://availity.github.io/element/?path=/docs/components-button-introduction--docs",
+  "PackageImport": "import { Button } from '@availity/element';",
+  "GitHubChangelogUrl": "https://github.com/Availity/element/tree/main/packages/button/CHANGELOG.md",
+  "GitHubPackageUrl": "https://github.com/Availity/element/tree/main/packages/button",
   ...
 }
 ```
@@ -494,7 +574,11 @@ element-mcp/
 │   │   ├── Pattern.cs
 │   │   └── Template.cs
 │   ├── Data/
+│   │   ├── element-data.json
 │   │   └── ElementDataService.cs
+│   ├── Services/
+│   │   ├── StorybookService.cs
+│   │   └── DataEnrichmentService.cs
 │   ├── Tools/
 │   │   ├── ComponentTools.cs
 │   │   ├── FoundationTools.cs
@@ -506,22 +590,27 @@ element-mcp/
 │   ├── Program.cs
 │   ├── ElementMcpServer.csproj
 │   └── README.md
+├── test/
+│   ├── TESTING.md
+│   └── test-server.ps1
 ├── README.md
 ├── AGENTS.md
+├── DEMO.md
+├── IMPLEMENTATION_SUMMARY.md
 └── .gitignore
 ```
 
 ### Adding New Components
 
-1. **Add data** to `ElementDataService.InitializeComponents()`:
-```csharp
-new Component
+1. **Add data** to `Data/element-data.json`:
+```json
 {
-    Id = "new-component",
-    Name = "New Component",
-    Category = "Category",
-    Description = "Description...",
-    // ... other properties
+  "id": "new-component",
+  "name": "NewComponent",
+  "category": "Category",
+  "description": "Description...",
+  "usage": "Usage instructions...",
+  "storybookUrl": "https://availity.github.io/element/?path=/docs/..."
 }
 ```
 
@@ -530,7 +619,7 @@ new Component
 dotnet build
 ```
 
-3. **Test** with MCP client
+3. **Test** with MCP client - component will be automatically enriched with GitHub links on startup
 
 ### Adding New Tools
 
@@ -680,6 +769,8 @@ Potential improvements for future versions:
 ### Responses are empty
 
 - Check data initialization in `ElementDataService`
+- Verify `element-data.json` exists and is valid
+- Check data enrichment logs for errors
 - Verify JSON serialization settings
 - Enable logging to debug
 
